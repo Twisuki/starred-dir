@@ -31,7 +31,25 @@ if %hour% lss 9 (
 :: 输出结果
 echo %hello%%username%, 欢迎使用StarredDir路径收藏夹
 echo ------------------------------------------------------------
-echo sd [name] [-n ^| -new] [-d ^| -del] [-l ^| -list] [-e ^| -edit]
+echo 用法: sd [name] [-n] [-d] [-l] [-e] [-h]
+echo.
 
+:: 打印列表
+
+:: 功能判断
+if "%~1"=="-n" (
+	echo n
+) else if "%~1"=="-d" (
+	echo d
+) else if "%~1"=="-l" (
+	echo l
+) else if "%~1"=="-e" (
+	echo e
+) else if "%~1"=="-h" (
+	echo h
+) else (
+	:: name判定
+	echo name
+)
 
 endlocal
