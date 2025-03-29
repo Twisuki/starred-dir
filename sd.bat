@@ -9,10 +9,8 @@ for /f "tokens=1-3 delims=:., " %%H in ("%TIME%") do (
     set second=%%J
 )
 
-:: 处理单数字小时（去掉前导空格）
+:: 处理单数字小时
 if "%hour:~0,1%"==" " set hour=%hour:~1%
-
-:: 转换为数值
 set /a hour=%hour%
 
 :: 设置问候语
@@ -28,7 +26,6 @@ if %hour% lss 9 (
     set hello=晚上好
 )
 
-:: 输出结果
 echo %hello%%username%, 欢迎使用StarredDir路径收藏夹
 echo ------------------------------------------------------------
 echo 用法: sd [name] [-n] [-d] [-l] [-e] [-h]
@@ -39,7 +36,7 @@ echo.
 :: 功能判断
 if "%~1"=="-n" (
 	:: sd -n <name> <dir>
-	call :NewDir "%~2", "%~3"
+	call :NewDir "%~2" "%~3"
 ) else if "%~1"=="-d" (
 	:: sd -d <name>
 	call :DelDir "%~2"
@@ -49,7 +46,7 @@ if "%~1"=="-n" (
 ) else if "%~1"=="-e" (
 	:: sd -e <name> -n <name>
 	:: sd -e <name> -d <dir>
-	call :Editor
+	call :Editor "%~2" "%~3" "%~4"
 ) else if "%~1"=="-h" (
 	:: sd -h
 	call :Help
@@ -58,34 +55,34 @@ if "%~1"=="-n" (
 	echo name
 )
 
-EXIT /B 0
+exit /B 0
 
 :: 新建
 :NewDir
 	:: <name> <dir>
-	echo name %~1 and di %~2
-exit /B 0
+	echo name %~1 and dir %~2
+	exit /B 0
 
 :: 删除
 :DelDir
 	:: <name>
 	echo 删除 %~1
-exit /B 0
+	exit /B 0
 
 :: 列表
 :PrintList
 	echo 打印列表
-exit /B 0
+	exit /B 0
 
 :: 编辑
 :Editor
 	:: <name> <-n/-d> <name/dir>
 	echo name %~1 and exe %~2 %~3
-exit /B 0
+	exit /B 0
 
 :: 帮助
 :Help
 	echo 帮助
-exit /B 0
+	exit /B 0
 
 endlocal
