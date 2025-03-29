@@ -42,17 +42,17 @@ if "%~1"=="-n" (
 	call :NewDir "%~2", "%~3"
 ) else if "%~1"=="-d" (
 	:: sd -d <name>
-	echo d
+	call :DelDir "%~2"
 ) else if "%~1"=="-l" (
 	:: sd -l
-	echo l
+	call :PrintList
 ) else if "%~1"=="-e" (
 	:: sd -e <name> -n <name>
 	:: sd -e <name> -d <dir>
-	echo e
+	call :Editor
 ) else if "%~1"=="-h" (
 	:: sd -h
-	echo h
+	call :Help
 ) else (
 	:: sd <name>
 	echo name
@@ -62,10 +62,30 @@ EXIT /B 0
 
 :: 新建
 :NewDir
-:: <name> <dir>
-echo name %~1 and di %~2
-EXIT /B 0
+	:: <name> <dir>
+	echo name %~1 and di %~2
+exit /B 0
 
 :: 删除
+:DelDir
+	:: <name>
+	echo 删除 %~1
+exit /B 0
+
+:: 列表
+:PrintList
+	echo 打印列表
+exit /B 0
+
+:: 编辑
+:Editor
+	:: <name> <-n/-d> <name/dir>
+	echo name %~1 and exe %~2 %~3
+exit /B 0
+
+:: 帮助
+:Help
+	echo 帮助
+exit /B 0
 
 endlocal
