@@ -11,7 +11,7 @@ for /f "tokens=1-3 delims=:., " %%H in ("%TIME%") do (
 
 :: 处理单数字小时
 if "%hour:~0,1%"==" " set hour=%hour:~1%
-set /a hour=%hour%
+set /a hour=1%hour% - 100 2>nul  || set /a hour=%hour%
 
 :: 设置问候语
 if %hour% lss 9 (
@@ -26,15 +26,16 @@ if %hour% lss 9 (
     set hello=晚上好
 )
 
-echo %hello%%username%, 欢迎使用StarredDir路径收藏夹
-echo ------------------------------------------------------------
-echo 用法: sd [name] [-n] [-d] [-l] [-e] [-h]
-echo.
-
-:: 打印列表
-
 :: 功能判断
-if "%~1"=="-n" (
+if "%~1"=="" (
+	echo %hello%%username%, 欢迎使用StarredDir路径收藏夹
+	echo ------------------------------------------------------------
+	echo 用法: sd [name] [-n] [-d] [-l] [-e] [-h]
+	echo.
+
+	::打印列表
+	echo 列表
+) else if "%~1"=="-n" (
 	:: sd -n <name> <dir>
 	call :NewDir "%~2" "%~3"
 ) else if "%~1"=="-d" (
@@ -52,7 +53,7 @@ if "%~1"=="-n" (
 	call :Help
 ) else (
 	:: sd <name>
-	echo name
+	echo %~1
 )
 
 exit /B 0
