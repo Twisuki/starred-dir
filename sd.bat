@@ -38,18 +38,34 @@ echo.
 
 :: 功能判断
 if "%~1"=="-n" (
-	echo n
+	:: sd -n <name> <dir>
+	call :NewDir "%~2", "%~3"
 ) else if "%~1"=="-d" (
+	:: sd -d <name>
 	echo d
 ) else if "%~1"=="-l" (
+	:: sd -l
 	echo l
 ) else if "%~1"=="-e" (
+	:: sd -e <name> -n <name>
+	:: sd -e <name> -d <dir>
 	echo e
 ) else if "%~1"=="-h" (
+	:: sd -h
 	echo h
 ) else (
-	:: name判定
+	:: sd <name>
 	echo name
 )
+
+EXIT /B 0
+
+:: 新建
+:NewDir
+:: <name> <dir>
+echo name %~1 and di %~2
+EXIT /B 0
+
+:: 删除
 
 endlocal
