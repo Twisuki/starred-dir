@@ -93,10 +93,12 @@ exit /B 0
 		echo %name%已存在, 路径为%value%, 是否覆盖修改?
 		choice /c YN /n /m "[Y/N]: "
 		if %errorlevel%==1 (
-			echo c
+			echo 修改
 		) else (
 			echo 不保存
 		)
+	) else (
+		echo %name%=%dir% > sd_data.txt
 	)
 
 	exit /B 0
