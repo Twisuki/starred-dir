@@ -63,7 +63,42 @@ exit /B 0
 :: 新建
 :NewDir
 	:: name dir
-	echo name %~1 and dir %~2
+	set "name=%~1"
+	if "%~2" neq "" (
+		set "dir=%~2"
+	) else (
+		set "dir=%cd%"
+	)
+
+	:: 检查文件是否存在
+	if not exist "sd_data.txt" (
+		echo %name%=%dir% > sd_data.txt
+		echo 已保存
+		exit /B 0
+	)
+
+	set "key_found="
+	for /f "tokens=1,* delims==" %%a in (sd_data.txt) do (
+		set "current_key=%%a"
+		for /f "tokens=*" %%k in ("!current_key!") do set "current_key=%%k"
+		if /i "!current_key!"=="%name%" (
+			set "key_found=1"
+			set "value=%%b"
+			goto :break
+		)
+	)
+	:break
+
+	if %key_found%==1 (
+		echo %name%已存在, 路径为%value%, 是否覆盖修改?
+		choice /c YN /n /m "[Y/N]: "
+		if %errorlevel%==1 (
+			echo c
+		) else (
+			echo 不保存
+		)
+	)
+
 	exit /B 0
 
 :: 删除
