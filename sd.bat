@@ -45,8 +45,7 @@ if "%~1"=="" (
 	:: sd -l
 	call :PrintList
 ) else if "%~1"=="-e" (
-	:: sd -e name -n name
-	:: sd -e name -d dir
+	:: sd -e name -n name / sd -e name -d dir
 	call :DirEditor "%~2" "%~3" "%~4"
 ) else if "%~1"=="-h" (
 	:: sd -h
