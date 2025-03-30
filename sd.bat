@@ -91,8 +91,8 @@ exit /B 0
 
 	if %key_found%==1 (
 		echo %name%已存在, 路径为%value%, 是否覆盖修改?
-		choice /c YN /n /m "[Y/N]: "
-		if %errorlevel%==1 (
+		choice
+		if %errorlevel%==0 (
 			echo 修改
 		) else (
 			echo 不保存
