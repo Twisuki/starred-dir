@@ -36,23 +36,23 @@ if "%~1"=="" (
 	::打印列表
 	echo 列表
 ) else if "%~1"=="-n" (
-	:: sd -n <name> <dir>
+	:: sd -n name dir
 	call :NewDir "%~2" "%~3"
 ) else if "%~1"=="-d" (
-	:: sd -d <name>
+	:: sd -d name
 	call :DelDir "%~2"
 ) else if "%~1"=="-l" (
 	:: sd -l
 	call :PrintList
 ) else if "%~1"=="-e" (
-	:: sd -e <name> -n <name>
-	:: sd -e <name> -d <dir>
-	call :Editor "%~2" "%~3" "%~4"
+	:: sd -e name -n name
+	:: sd -e name -d dir
+	call :DirEditor "%~2" "%~3" "%~4"
 ) else if "%~1"=="-h" (
 	:: sd -h
 	call :Help
 ) else (
-	:: sd <name>
+	:: sd name
 	echo %~1
 )
 
@@ -60,13 +60,13 @@ exit /B 0
 
 :: 新建
 :NewDir
-	:: <name> <dir>
+	:: name dir
 	echo name %~1 and dir %~2
 	exit /B 0
 
 :: 删除
 :DelDir
-	:: <name>
+	:: name
 	echo 删除 %~1
 	exit /B 0
 
@@ -76,8 +76,8 @@ exit /B 0
 	exit /B 0
 
 :: 编辑
-:Editor
-	:: <name> <-n/-d> <name/dir>
+:DirEditor
+	:: name -n/-d name/dir
 	echo name %~1 and exe %~2 %~3
 	exit /B 0
 
