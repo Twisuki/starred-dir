@@ -30,7 +30,7 @@ if %hour% lss 9 (
 if "%~1"=="" (
 	echo %hello%%username%, 欢迎使用StarredDir路径收藏夹
 	echo ------------------------------------------------------------
-	echo 用法: sd [name] [-n] [-d] [-l] [-e] [-h]
+	echo 用法: sd [name] [-n] [-d] [-l] [-e] [-h] [-v]
 	echo.
 
 	::打印列表
@@ -49,7 +49,10 @@ if "%~1"=="" (
 	call :DirEditor "%~2" "%~3" "%~4"
 ) else if "%~1"=="-h" (
 	:: sd -h
-	call :Help
+	echo 帮助
+) else if "%~1"=="-v" (
+	:: sd-v
+	echo 当前版本 0.0.0
 ) else (
 	:: sd name
 	echo %~1
@@ -78,11 +81,6 @@ exit /B 0
 :DirEditor
 	:: name -n/-d name/dir
 	echo name %~1 and exe %~2 %~3
-	exit /B 0
-
-:: 帮助
-:Help
-	echo 帮助
 	exit /B 0
 
 endlocal
