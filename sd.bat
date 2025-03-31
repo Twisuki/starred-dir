@@ -71,35 +71,40 @@ exit /B 0
 	)
 
 	:: 检查文件是否存在
-	if not exist "sd_data.txt" (
-		echo %name%=%dir% > sd_data.txt
-		echo 已保存
-		exit /B 0
+	if not exist "sd_data/%name%.txt" (
+		mkdir sd_data
+		echo %dir% > sd_data/%name%.txt
 	)
-
-	set "key_found="
-	for /f "tokens=1,* delims==" %%a in (sd_data.txt) do (
-		set "current_key=%%a"
-		for /f "tokens=*" %%k in ("!current_key!") do set "current_key=%%k"
-		if /i "!current_key!"=="%name%" (
-			set "key_found=1"
-			set "value=%%b"
-			goto :break
-		)
-	)
-	:break
-
-	if %key_found%==1 (
-		echo %name%已存在, 路径为%value%, 是否覆盖修改?
-		choice
-		if %errorlevel%==0 (
-			echo 修改
-		) else (
-			echo 不保存
-		)
-	) else (
-		echo %name%=%dir% > sd_data.txt
-	)
+@REM 	:: 检查文件是否存在
+@REM 	if not exist "sd_data.txt" (
+@REM 		echo %name%=%dir% ^> sd_data.txt
+@REM 		echo 已保存
+@REM 		exit /B 0
+@REM 	)
+@REM
+@REM 	set "key_found="
+@REM 	for /f "tokens=1,* delims==" %%a in (sd_data.txt) do (
+@REM 		set "current_key=%%a"
+@REM 		for /f "tokens=*" %%k in ("!current_key!") do set "current_key=%%k"
+@REM 		if /i "!current_key!"=="%name%" (
+@REM 			set "key_found=1"
+@REM 			set "value=%%b"
+@REM 			goto :break
+@REM 		)
+@REM 	)
+@REM 	:break
+@REM
+@REM 	if %key_found%==1 (
+@REM 		echo %name%已存在, 路径为%value%, 是否覆盖修改?
+@REM 		choice
+@REM 		if %errorlevel%==0 (
+@REM 			echo 修改
+@REM 		) else (
+@REM 			echo 不保存
+@REM 		)
+@REM 	) else (
+@REM 		echo %name%=%dir% > sd_data.txt
+@REM 	)
 
 	exit /B 0
 
