@@ -71,44 +71,40 @@ exit /B 0
 	)
 
 	:: 检查文件夹是否存在
-	if not exist "sd_data (
+	if not exist "sd_data" (
 		mkdir sd_data
 	)
 
 	:: 检查文件是否存在
 	if not exist "sd_data/%name%.txt" (
 		echo %dir% > sd_data/%name%.txt
+		echo 已保存: %name% = %dir%
+		exit /B 0
 	)
-@REM 	:: 检查文件是否存在
-@REM 	if not exist "sd_data.txt" (
-@REM 		echo %name%=%dir% ^> sd_data.txt
-@REM 		echo 已保存
-@REM 		exit /B 0
-@REM 	)
-@REM
-@REM 	set "key_found="
-@REM 	for /f "tokens=1,* delims==" %%a in (sd_data.txt) do (
-@REM 		set "current_key=%%a"
-@REM 		for /f "tokens=*" %%k in ("!current_key!") do set "current_key=%%k"
-@REM 		if /i "!current_key!"=="%name%" (
-@REM 			set "key_found=1"
-@REM 			set "value=%%b"
-@REM 			goto :break
-@REM 		)
-@REM 	)
-@REM 	:break
-@REM
-@REM 	if %key_found%==1 (
-@REM 		echo %name%已存在, 路径为%value%, 是否覆盖修改?
-@REM 		choice
-@REM 		if %errorlevel%==0 (
-@REM 			echo 修改
-@REM 		) else (
-@REM 			echo 不保存
-@REM 		)
-@REM 	) else (
-@REM 		echo %name%=%dir% > sd_data.txt
-@REM 	)
+
+	:: 已存在文件新老路径是否相同
+	set "olddir="
+	for /f "delims=" %%i in (%name%) do (
+    set "olddir=%%i"
+		goto :done
+	)
+	:done
+
+	if "%olddir%"=="%dir%" (
+		echo "%name%"已存在, 但新老路径相同, 均为:
+		echo %olddir%
+	)
+
+	echo "%name%"已存在, 路径为:
+	echo %olddir%
+	echo 是否覆盖修改?
+	choice
+	if %errorlevel%==1 (
+		echo %dir% > sd_data/%name%.txt
+		echo 已保存: %name%为%dir%
+	) else (
+		echo 取消修改
+	)
 
 	exit /B 0
 
