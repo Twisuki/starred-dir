@@ -70,9 +70,13 @@ exit /B 0
 		set "dir=%cd%"
 	)
 
+	:: 检查文件夹是否存在
+	if not exist "sd_data (
+		mkdir sd_data
+	)
+
 	:: 检查文件是否存在
 	if not exist "sd_data/%name%.txt" (
-		mkdir sd_data
 		echo %dir% > sd_data/%name%.txt
 	)
 @REM 	:: 检查文件是否存在
