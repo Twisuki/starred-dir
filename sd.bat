@@ -84,7 +84,7 @@ exit /B 0
 
 	:: 已存在文件新老路径是否相同
 	set "olddir="
-	for /f "delims=" %%i in (%name%) do (
+	for /f "delims=" %%i in (sd_data/%name%.txt) do (
     set "olddir=%%i"
 		goto :done
 	)
@@ -93,6 +93,7 @@ exit /B 0
 	if "%olddir%"=="%dir%" (
 		echo "%name%"已存在, 但新老路径相同, 均为:
 		echo %olddir%
+		exit /B 0
 	)
 
 	echo "%name%"已存在, 路径为:
