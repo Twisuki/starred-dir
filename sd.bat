@@ -194,21 +194,21 @@ exit /B 0
 
 	set "name=%~1"
 
+	:: 检查文件夹是否存在
+	if not exist "%~dp0/sd_data" (
+		echo 文件不存在
+	)
+
+	:: 检查文件是否存在
+	if not exist "%~dp0/sd_data/%name%.txt" (
+		echo %name%不存在
+		exit /B 0
+	)
+
 	if "%~2"=="-n" (
 		:: 重命名
 		if "%~3"=="" (
 			echo 参数有误, 请查询帮助^'sd -h -e^'
-			exit /B 0
-		)
-
-		:: 检查文件夹是否存在
-		if not exist "%~dp0/sd_data" (
-			echo 文件不存在
-		)
-
-		:: 检查文件是否存在
-		if not exist "%~dp0/sd_data/%name%.txt" (
-			echo %name%不存在
 			exit /B 0
 		)
 
@@ -227,7 +227,25 @@ exit /B 0
 
 	) else if "%~2"=="-d" (
 		:: 修改路径
-		echo 修改路径
+		if "%~3" neq "" (
+			set "dir=%~3"
+		) else (
+			set "dir=%cd%"
+		)
+
+		for /f "usebackq delims=" %%i in ("%~dp0/sd_data/%name%.txt") do (
+			echo %name% : %%i
+		)
+
+		echo 修改%name%路径为!dir!
+		choice
+		if !errorlevel!==1 (
+			del %~dp0\sd_data\%name%.txt
+			echo !dir! > %~dp0/sd_data/%name%.txt
+			echo %name%路径已修改为!dir!
+		) else (
+			echo 取消修改
+		)
 	) else (
 		echo 参数有误, 请查询帮助^'sd -h -e^'
 	)
