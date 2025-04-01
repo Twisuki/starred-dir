@@ -196,7 +196,35 @@ exit /B 0
 
 	if "%~2"=="-n" (
 		:: 重命名
-		echo 重命名%name%
+		if "%~3"=="" (
+			echo 参数有误, 请查询帮助^'sd -h -e^'
+			exit /B 0
+		)
+
+		:: 检查文件夹是否存在
+		if not exist "%~dp0/sd_data" (
+			echo 文件不存在
+		)
+
+		:: 检查文件是否存在
+		if not exist "%~dp0/sd_data/%name%.txt" (
+			echo %name%不存在
+			exit /B 0
+		)
+
+		for /f "usebackq delims=" %%i in ("%~dp0/sd_data/%name%.txt") do (
+			echo %name% : %%i
+		)
+
+		echo 是否重命名%name%为%~3?
+		choice
+		if %errorlevel%==1 (
+			ren "%~dp0\sd_data\%name%.txt" "%~3.txt"
+			echo %name%已重命名为%~3?
+		) else (
+			echo 取消重命名
+		)
+
 	) else if "%~2"=="-d" (
 		:: 修改路径
 		echo 修改路径
