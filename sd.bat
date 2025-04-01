@@ -2,39 +2,48 @@
 chcp 936 > nul 2>&1
 setlocal enabledelayedexpansion
 
-:: 安全获取时间（兼容所有Windows版本）
-for /f "tokens=1-3 delims=:., " %%H in ("%TIME%") do (
-    set hour=%%H
-    set minute=%%I
-    set second=%%J
-)
-
-:: 处理单数字小时
-if "%hour:~0,1%"==" " set hour=%hour:~1%
-set /a hour=1%hour% - 100 2>nul  || set /a hour=%hour%
-
-:: 设置问候语
-if %hour% lss 9 (
-    set hello=早上好
-) else if %hour% lss 12 (
-    set hello=上午好
-) else if %hour% equ 12 (
-    set hello=中午好
-) else if %hour% lss 18 (
-    set hello=下午好
-) else (
-    set hello=晚上好
-)
+:: 全局变量
+set "sd_version=0.0.1"
 
 :: 功能判断
 if "%~1"=="" (
+	:: 安全获取时间（兼容所有Windows版本）
+	for /f "tokens=1-3 delims=:., " %%H in ("%TIME%") do (
+		set hour=%%H
+		set minute=%%I
+		set second=%%J
+	)
+
+	:: 处理单数字小时
+	if "%hour:~0,1%"==" " set hour=%hour:~1%
+	set /a hour=1%hour% - 100 2>nul  || set /a hour=%hour%
+
+	:: 设置问候语
+	if %hour% lss 9 (
+		set hello=早上好
+	) else if %hour% lss 12 (
+		set hello=上午好
+	) else if %hour% equ 12 (
+		set hello=中午好
+	) else if %hour% lss 18 (
+		set hello=下午好
+	) else (
+		set hello=晚上好
+	)
+
 	echo %hello%%username%, 欢迎使用StarredDir路径收藏夹
 	echo ------------------------------------------------------------
 	echo 用法: sd [-d] [-e] [-h] [-l] [-n] [-v] [name]
 	echo.
 
-	::打印列表
-	echo 列表
+	:: 打印列表
+	echo 已存在的路径:
+	call :PrintList
+
+	:: 输出版本
+	echo.
+	echo 当前StarredDir版本: %sd_version%
+
 ) else if "%~1"=="-d" (
 	:: sd -d name
 	call :DelDir "%~2"
@@ -52,7 +61,7 @@ if "%~1"=="" (
 	call :NewDir "%~2" "%~3"
 ) else if "%~1"=="-v" (
 	:: sd-v
-	echo 当前版本 0.0.0
+	echo 当前StarredDir版本: %sd_version%
 ) else (
 	:: sd name
 	echo %~1
