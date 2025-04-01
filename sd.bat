@@ -54,7 +54,7 @@ if "%~1"=="" (
 	call :DirEditor "%~2" "%~3" "%~4"
 ) else if "%~1"=="-h" (
 	:: sd -h
-	call :SdHelp
+	call :SdHelp "%~2"
 ) else if "%~1"=="-l" (
 	:: sd -l
 	call :PrintList
@@ -177,6 +177,31 @@ exit /B 0
 :: 帮助
 :SdHelp
 	:: /-d/-e/-l/-n/-v
-	echo 帮助
+	if "%~1"=="" (
+		:: 分类
+		echo StarredDir是Twisuki开发的基于Bat批处理文本的路径收藏小程序
+		echo 使用^'sd -n^'新建一个路径, 使用^'sd ^<name^>^'跳转到已保存的路径
+		echo 其他参数使用说明请输入^'sd -h [-d] [-e] [-l] [-n] [-v]^'
+	) else if "%~1"=="-d" (
+		:: sd -d name
+		echo 使用^'sd -d ^<name^>^'删除已保存的路径^<name^>
+	) else if "%~1"=="-e" (
+		:: sd -e name -n name / sd -e name -d dir
+		echo 使用^'sd -d ^<name^> -n ^<new name^>^'重命名已保存的路径^<name^>为^<new name^>
+		echo 使用^'sd -d ^<name^> -d ^<new dir^>^'修改已保存的路径^<name^>位置为^<new dir^>
+		echo 若^<new dir^>留空则修改为当前位置
+	) else if "%~1"=="-l" (
+		:: sd -l
+		echo 使用^'sd -l^'显示所有保存的路径信息
+	) else if "%~1"=="-n" (
+		:: sd -n name dir
+		echo 使用^'sd -d ^<name^> ^<dir^>^'保存^<dir^>为^<name^>
+		echo 若^<dir^>留空则保存当前位置
+	) else if "%~1"=="-v" (
+		:: sd-v
+		echo 使用^'sd -v^'查看版本信息
+	) else (
+		echo 无效的参数, 请输入^'sd -h^'或^'sd -h [-d] [-e] [-l] [-n] [-v]^'
+	)
 
 endlocal
