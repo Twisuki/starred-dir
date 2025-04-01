@@ -35,7 +35,7 @@ echo ------------------------------------------------------------
 
 :: 功能判断
 if "%~1"=="" (
-	echo 用法: sd [-d] [-e] [-h] [-l] [-n] [-v] [name]
+	echo 使用方法: sd [-d] [-e] [-h] [-l] [-n] [-v] [name]
 	echo.
 
 	:: 打印列表
@@ -44,6 +44,9 @@ if "%~1"=="" (
 	:: 输出版本
 	echo.
 	echo 当前StarredDir版本: %sd_version%
+
+	echo.
+	echo 使用^'sd -h^'显示更多信息
 
 ) else if "%~1"=="-d" (
 	:: sd -d name
