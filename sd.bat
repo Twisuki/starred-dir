@@ -76,6 +76,13 @@ exit /B 0
 :: 新建
 :NewDir
 	:: name dir
+
+	:: 空参数跳转帮助
+	if "%~1"=="" (
+		call :SdHelp "-n"
+		exit /B 0
+	)
+
 	set "name=%~1"
 	if "%~2" neq "" (
 		set "dir=%~2"
@@ -119,6 +126,13 @@ exit /B 0
 :: 删除
 :DelDir
 	:: name
+
+	:: 空参数跳转帮助
+	if "%~1"=="" (
+		call :SdHelp "-d"
+		exit /B 0
+	)
+
 	set "name=%~1"
 
 	:: 检查文件夹是否存在
@@ -171,6 +185,13 @@ exit /B 0
 :: 编辑
 :DirEditor
 	:: name -n/-d name/dir
+
+	:: 空参数跳转帮助
+	if "%~1"=="" (
+		call :SdHelp "-e"
+		exit /B 0
+	)
+
 	echo name %~1 and exe %~2 %~3
 	exit /B 0
 
