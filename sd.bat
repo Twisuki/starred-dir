@@ -1,4 +1,4 @@
-@REM @echo off
+@echo off
 chcp 936 > nul 2>&1
 setlocal enabledelayedexpansion
 
@@ -117,16 +117,12 @@ exit /B 0
 		exit /B 0
 	)
 
-	echo 120
 	cd sd_data
 	:: ╤ах║нд╪Ч
 	for %%f in (*) do (
-		echo 124
 		for /f "usebackq delims=" %%i in ("%%f") do (
-			echo %%i
-			goto :PrintListDone
+			echo %%~nf : %%i
 		)
-		:PrintListDone
 	)
 	cd ..
 	exit /B 0
