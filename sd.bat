@@ -114,7 +114,7 @@ exit /B 0
 	echo %olddir%
 	echo 是否覆盖修改?
 	choice
-	if %errorlevel%==1 (
+	if !errorlevel%==1 (
 		echo %dir% > %~dp0/sd_data/%name%.txt
 		echo 已保存: %name%为%dir%
 	) else (
@@ -153,7 +153,7 @@ exit /B 0
 
 	echo 确认删除?
 	choice
-	if %errorlevel%==1 (
+	if !errorlevel%==1 (
 		del %~dp0\sd_data\%name%.txt
 		echo %name%已删除
 	) else (
@@ -218,9 +218,9 @@ exit /B 0
 
 		echo 是否重命名%name%为%~3?
 		choice
-		if %errorlevel%==1 (
+		if !errorlevel!==1 (
 			ren "%~dp0\sd_data\%name%.txt" "%~3.txt"
-			echo %name%已重命名为%~3?
+			echo %name%已重命名为%~3
 		) else (
 			echo 取消重命名
 		)
