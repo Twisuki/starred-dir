@@ -192,7 +192,18 @@ exit /B 0
 		exit /B 0
 	)
 
-	echo name %~1 and exe %~2 %~3
+	set "name=%~1"
+
+	if "%~2"=="-n" (
+		:: 重命名
+		echo 重命名%name%
+	) else if "%~2"=="-d" (
+		:: 修改路径
+		echo 修改路径
+	) else (
+		echo 参数有误, 请查询帮助^'sd -h -e^'
+	)
+
 	exit /B 0
 
 :: 帮助
