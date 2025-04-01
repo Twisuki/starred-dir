@@ -1,4 +1,4 @@
-@echo off
+@REM @echo off
 chcp 936 > nul 2>&1
 setlocal enabledelayedexpansion
 
@@ -111,7 +111,24 @@ exit /B 0
 
 :: 列表
 :PrintList
-	echo 打印列表
+	:: 检测路径是否存在
+	if not exist "sd_data" (
+		echo 无路径存储
+		exit /B 0
+	)
+
+	echo 120
+	cd sd_data
+	:: 读取文件
+	for %%f in (*) do (
+		echo 124
+		for /f "usebackq delims=" %%i in ("%%f") do (
+			echo %%i
+			goto :PrintListDone
+		)
+		:PrintListDone
+	)
+	cd ..
 	exit /B 0
 
 :: 编辑
