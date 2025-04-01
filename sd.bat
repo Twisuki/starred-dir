@@ -19,11 +19,11 @@ set /a hour=1%hour% - 100 2>nul  || set /a hour=%hour%
 :: 设置问候语
 if %hour% lss 9 (
 	set hello=早上好
-) else if %hour% lss 12 (
+) else if %hour% lss 13 (
 	set hello=上午好
-) else if %hour% equ 12 (
+) else if %hour% lss 14 (
 	set hello=中午好
-) else if %hour% lss 18 (
+) else if %hour% lss 19 (
 	set hello=下午好
 ) else (
 	set hello=晚上好
@@ -39,7 +39,6 @@ if "%~1"=="" (
 	echo.
 
 	:: 打印列表
-	echo 已存在的路径:
 	call :PrintList
 
 	:: 输出版本
