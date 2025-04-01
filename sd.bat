@@ -66,7 +66,25 @@ if "%~1"=="" (
 	echo 当前StarredDir版本: %sd_version%
 ) else (
 	:: sd name
-	echo %~1
+	set "name=%~1"
+
+	:: 检查文件夹是否存在
+	if not exist "%~dp0/sd_data" (
+		echo 路径不存在
+	)
+
+	:: 检查文件是否存在
+	if not exist "%~dp0/sd_data/!name!.txt" (
+		echo !name!不存在
+		exit /B 0
+	)
+
+	for /f "usebackq delims=" %%i in ("%~dp0/sd_data/!name!.txt") do (
+		set "cmd=cd %%i"
+	)
+
+	powershell -Command "Set-Clipboard -Value '!cmd!'"
+	echo 跳转已保存的剪贴板, 请右键并回车.
 )
 
 echo.
