@@ -285,15 +285,15 @@ exit /B 0
 		echo 使用^'sd -d ^<name^>^'删除已保存的路径^<name^>
 	) else if "%~1"=="-e" (
 		:: sd -e name -n name / sd -e name -d dir
-		echo 使用^'sd -d ^<name^> -n ^<new name^>^'重命名已保存的路径^<name^>为^<new name^>
-		echo 使用^'sd -d ^<name^> -d ^<new dir^>^'修改已保存的路径^<name^>位置为^<new dir^>
+		echo 使用^'sd -e ^<name^> -n ^<new name^>^'重命名已保存的路径^<name^>为^<new name^>
+		echo 使用^'sd -e ^<name^> -d ^<new dir^>^'修改已保存的路径^<name^>位置为^<new dir^>
 		echo 若^<new dir^>留空则修改为当前位置
 	) else if "%~1"=="-l" (
 		:: sd -l
 		echo 使用^'sd -l^'显示所有保存的路径信息
 	) else if "%~1"=="-n" (
 		:: sd -n name dir
-		echo 使用^'sd -d ^<name^> ^<dir^>^'保存^<dir^>为^<name^>
+		echo 使用^'sd -n ^<name^> ^<dir^>^'保存^<dir^>为^<name^>
 		echo 若^<dir^>留空则保存当前位置
 	) else if "%~1"=="-v" (
 		:: sd-v
