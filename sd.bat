@@ -29,6 +29,7 @@ if %hour% lss 9 (
 	set hello=晚上好
 )
 
+echo.
 echo %hello%%username%, 欢迎使用StarredDir路径收藏夹
 echo ------------------------------------------------------------
 
@@ -53,7 +54,7 @@ if "%~1"=="" (
 	call :DirEditor "%~2" "%~3" "%~4"
 ) else if "%~1"=="-h" (
 	:: sd -h
-	echo 帮助
+	call :SdHelp
 ) else if "%~1"=="-l" (
 	:: sd -l
 	call :PrintList
@@ -67,6 +68,8 @@ if "%~1"=="" (
 	:: sd name
 	echo %~1
 )
+
+echo.
 
 exit /B 0
 
@@ -170,5 +173,10 @@ exit /B 0
 	:: name -n/-d name/dir
 	echo name %~1 and exe %~2 %~3
 	exit /B 0
+
+:: 帮助
+:SdHelp
+	:: /-d/-e/-l/-n/-v
+	echo 帮助
 
 endlocal
