@@ -71,20 +71,20 @@ exit /B 0
 	)
 
 	:: 检查文件夹是否存在
-	if not exist "sd_data" (
-		mkdir sd_data
+	if not exist "%~dp0/sd_data" (
+		mkdir %~dp0/sd_data
 	)
 
 	:: 检查文件是否存在
-	if not exist "sd_data/%name%.txt" (
-		echo %dir% > sd_data/%name%.txt
+	if not exist "%~dp0/sd_data/%name%.txt" (
+		echo %dir% > %~dp0/sd_data/%name%.txt
 		echo 已保存: %name% = %dir%
 		exit /B 0
 	)
 
 	:: 已存在是否覆盖
 	set "olddir="
-	for /f "delims=" %%i in (sd_data/%name%.txt) do (
+	for /f "delims=" %%i in (%~dp0/sd_data/%name%.txt) do (
     set "olddir=%%i"
 		goto :done
 	)
@@ -95,7 +95,7 @@ exit /B 0
 	echo 是否覆盖修改?
 	choice
 	if %errorlevel%==1 (
-		echo %dir% > sd_data/%name%.txt
+		echo %dir% > %~dp0/sd_data/%name%.txt
 		echo 已保存: %name%为%dir%
 	) else (
 		echo 取消修改
@@ -109,25 +109,25 @@ exit /B 0
 	set "name=%~1"
 
 	:: 检查文件夹是否存在
-	if not exist "sd_data" (
+	if not exist "%~dp0/sd_data" (
 		echo 文件不存在
 	)
 
 	:: 检查文件是否存在
-	if not exist "sd_data/%name%.txt" (
+	if not exist "%~dp0/sd_data/%name%.txt" (
 		echo %name%不存在
 		exit /B 0
 	)
 
 	:: 输出文件
-	for /f "usebackq delims=" %%i in ("sd_data/%name%.txt") do (
+	for /f "usebackq delims=" %%i in ("%~dp0/sd_data/%name%.txt") do (
 		echo %name% : %%i
 	)
 
 	echo 确认删除?
 	choice
 	if %errorlevel%==1 (
-		del sd_data\%name%.txt
+		del %~dp0\sd_data\%name%.txt
 		echo %name%已删除
 	) else (
 		echo 取消删除
@@ -138,12 +138,12 @@ exit /B 0
 :: 列表
 :PrintList
 	:: 检测路径是否存在
-	if not exist "sd_data" (
+	if not exist "%~dp0/sd_data" (
 		echo 无路径存储
 		exit /B 0
 	)
 
-	cd sd_data
+	cd %~dp0/sd_data
 	:: 读取文件
 	for %%f in (*) do (
 		for /f "usebackq delims=" %%i in ("%%f") do (
