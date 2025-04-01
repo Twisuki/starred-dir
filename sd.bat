@@ -3,7 +3,7 @@ chcp 936 > nul 2>&1
 setlocal enabledelayedexpansion
 
 :: 全局变量
-set "sd_version=0.0.1"
+set "sd_version=1.0"
 
 :: 安全获取时间（兼容所有Windows版本）
 for /f "tokens=1-3 delims=:., " %%H in ("%TIME%") do (
@@ -65,7 +65,7 @@ if "%~1"=="" (
 	call :NewDir "%~2" "%~3"
 ) else if "%~1"=="-v" (
 	:: sd-v
-	echo 当前StarredDir版本: %sd_version%
+	echo 当前StarredDir版本: sd %sd_version%
 ) else (
 	:: sd name
 	set "name=%~1"
