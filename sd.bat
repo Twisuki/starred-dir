@@ -86,7 +86,7 @@ if "%~1"=="" (
 	)
 
 	powershell -Command "Set-Clipboard -Value '!cmd!'"
-	echo 跳转已保存的剪贴板, 请右键并回车.
+	echo 跳转命令已保存的剪贴板, 请右键并回车.
 )
 
 echo.
