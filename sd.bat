@@ -48,22 +48,22 @@ if "%~1"=="" (
 	echo.
 	echo 使用^'sd -h^'显示更多信息
 
-) else if "%~1"=="-d" (
+) else if /i "%~1"=="-d" (
 	:: sd -d name
 	call :DelDir "%~2"
-) else if "%~1"=="-e" (
+) else if /i "%~1"=="-e" (
 	:: sd -e name -n name / sd -e name -d dir
 	call :DirEditor "%~2" "%~3" "%~4"
-) else if "%~1"=="-h" (
+) else if /i "%~1"=="-h" (
 	:: sd -h
 	call :SdHelp "%~2"
-) else if "%~1"=="-l" (
+) else if /i "%~1"=="-l" (
 	:: sd -l
 	call :PrintList
-) else if "%~1"=="-n" (
+) else if /i "%~1"=="-n" (
 	:: sd -n name dir
 	call :NewDir "%~2" "%~3"
-) else if "%~1"=="-v" (
+) else if /i "%~1"=="-v" (
 	:: sd-v
 	echo 当前StarredDir版本: sd %sd_version%
 ) else (
@@ -225,7 +225,7 @@ exit /B 0
 		exit /B 0
 	)
 
-	if "%~2"=="-n" (
+	if /i "%~2"=="-n" (
 		:: 重命名
 		if "%~3"=="" (
 			echo 参数有误, 请查询帮助^'sd -h -e^'
@@ -245,7 +245,7 @@ exit /B 0
 			echo 取消重命名
 		)
 
-	) else if "%~2"=="-d" (
+	) else if /i "%~2"=="-d" (
 		:: 修改路径
 		if "%~3" neq "" (
 			set "dir=%~3"
@@ -280,22 +280,22 @@ exit /B 0
 		echo StarredDir是Twisuki开发的基于Bat批处理文本的路径收藏小程序
 		echo 使用^'sd -n^'新建一个路径, 使用^'sd ^<name^>^'跳转到已保存的路径
 		echo 其他参数使用说明请输入^'sd -h [-d] [-e] [-l] [-n] [-v]^'
-	) else if "%~1"=="-d" (
+	) else if /i "%~1"=="-d" (
 		:: sd -d name
 		echo 使用^'sd -d ^<name^>^'删除已保存的路径^<name^>
-	) else if "%~1"=="-e" (
+	) else if /i "%~1"=="-e" (
 		:: sd -e name -n name / sd -e name -d dir
 		echo 使用^'sd -e ^<name^> -n ^<new name^>^'重命名已保存的路径^<name^>为^<new name^>
 		echo 使用^'sd -e ^<name^> -d ^<new dir^>^'修改已保存的路径^<name^>位置为^<new dir^>
 		echo 若^<new dir^>留空则修改为当前位置
-	) else if "%~1"=="-l" (
+	) else if /i "%~1"=="-l" (
 		:: sd -l
 		echo 使用^'sd -l^'显示所有保存的路径信息
-	) else if "%~1"=="-n" (
+	) else if /i "%~1"=="-n" (
 		:: sd -n name dir
 		echo 使用^'sd -n ^<name^> ^<dir^>^'保存^<dir^>为^<name^>
 		echo 若^<dir^>留空则保存当前位置
-	) else if "%~1"=="-v" (
+	) else if /i "%~1"=="-v" (
 		:: sd-v
 		echo 使用^'sd -v^'查看版本信息
 	) else (
