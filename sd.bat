@@ -106,7 +106,33 @@ exit /B 0
 :: 删除
 :DelDir
 	:: name
-	echo 删除 %~1
+	set "name=%~1"
+
+	:: 检查文件夹是否存在
+	if not exist "sd_data" (
+		echo 文件不存在
+	)
+
+	:: 检查文件是否存在
+	if not exist "sd_data/%name%.txt" (
+		echo %name%不存在
+		exit /B 0
+	)
+
+	:: 输出文件
+	for /f "usebackq delims=" %%i in ("sd_data/%name%.txt") do (
+		echo %name% : %%i
+	)
+
+	echo 确认删除?
+	choice
+	if %errorlevel%==1 (
+		del sd_data\%name%.txt
+		echo %name%已删除
+	) else (
+		echo 取消删除
+	)
+
 	exit /B 0
 
 :: 列表
